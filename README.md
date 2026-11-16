@@ -20,6 +20,19 @@ A CNN trained on the BanglaLekha-Isolated dataset (84 character classes), wrappe
    - Connected components are extracted left to right, and each one is classified by the CNN (top-5 probabilities kept).
    - Because the dataset has no dependent vowel signs (kars), the sequence is matched against a built-in Bangla lexicon using a probability-weighted edit distance, which restores the vowel signs.
 
+## Results (MLflow experiment `bangla-handwritten-ocr`)
+
+Four training runs were recorded. Accuracy is on the 10% held-out test split of isolated characters.
+
+| Run | Architecture | Epochs | Learning rate | Val accuracy | Test accuracy |
+|---|---|---|---|---|---|
+| 1 | baseline_cnn | 12 | 0.001 | 89.3% | 88.9% |
+| 2 | baseline_cnn | 12 | 0.001 | 89.0% | 89.0% |
+| 3 | deep_bn_cnn | 12 | 0.001 | 89.5% | 89.0% |
+| 4 | deep_bn_cnn | 15 | 0.0005 | 90.5% | **90.4%** |
+
+Run 4 gave the best result. Its model is the one saved in `models/model.keras` and used by the app. These numbers are for single characters, not whole words.
+
 ## Project structure
 
 ```
@@ -30,12 +43,12 @@ bangla-ocr-assignment/
 |-- Dockerfile
 |-- README.md
 |-- labels.json
+|-- github_link.txt
 |-- models/model.keras
-|-- artifacts/mlflow/
 `-- screenshots/
-    |-- streamlit_app.png
-    `-- mlflow_experiment.png
 ```
+
+`artifacts/mlflow/` (the MLflow runs) is created when you run `train.py` and is not committed. The dataset is not included either. Download it from [Mendeley Data](https://data.mendeley.com/datasets/hf6sf8zrkc/2).
 
 ## How to run
 
@@ -74,7 +87,7 @@ Open http://localhost:8501, draw a word, and click **Predict Word**.
 
 ### 5. Run with Docker
 
-`models/model.keras` and `labels.json` must exist before building (run `train.py` first).
+The trained `models/model.keras` and `labels.json` are included in the repository, so the image builds straight after cloning (no training or dataset needed). Docker runs only the app; training is done locally with `train.py`.
 
 ```
 docker build -t bangla-ocr-app:0.1 .
