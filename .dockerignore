@@ -1,0 +1,13 @@
+venv/
+.venv/
+bangla-ocr-assignment/
+BanglaLekha-Isolated/
+artifacts/
+screenshots/
+__pycache__/
+*.pyc
+*.zip
+.git/
+.gitignore
+README.md
+train.py

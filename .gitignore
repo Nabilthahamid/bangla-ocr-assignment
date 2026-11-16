@@ -1,0 +1,28 @@
+# Virtual environments
+venv/
+.venv/
+env/
+
+# Python caches
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# MLflow runs (screenshots of them are committed instead)
+artifacts/mlflow/
+mlruns/
+
+# Nested duplicate folder
+bangla-ocr-assignment/
+
+# Dataset (never commit raw data)
+BanglaLekha-Isolated/
+data/
+dataset/
+*.zip
+*.tar.gz
+
+# OS files
+.DS_Store
+Thumbs.db
